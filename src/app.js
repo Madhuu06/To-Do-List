@@ -82,6 +82,7 @@ App = {
       // Hydrate the smart contract with values from the blockchain
       App.todoList = await App.contracts.TodoList.deployed()
       console.log("Contract loaded successfully")
+      console.log("Contract address:", App.todoList.address)
     } catch (error) {
       console.error("Error loading contract:", error)
       throw error
@@ -151,16 +152,36 @@ App = {
 
   createTask: async () => {
     App.setLoading(true)
-    const content = $('#newTask').val()
-    await App.todoList.createTask(content)
-    window.location.reload()
+    try {
+      const content = $('#newTask').val()
+      console.log("Creating task with content:", content)
+      console.log("Using account:", App.account)
+      
+      await App.todoList.createTask(content, { from: App.account })
+      console.log("Task created successfully")
+      window.location.reload()
+    } catch (error) {
+      console.error("Error creating task:", error)
+      App.setLoading(false)
+      alert("Error creating task: " + error.message)
+    }
   },
 
   toggleCompleted: async (e) => {
     App.setLoading(true)
-    const taskId = e.target.name
-    await App.todoList.toggleCompleted(taskId)
-    window.location.reload()
+    try {
+      const taskId = e.target.name
+      console.log("Toggling task completion for task ID:", taskId)
+      console.log("Using account:", App.account)
+      
+      await App.todoList.toggleCompleted(taskId, { from: App.account })
+      console.log("Task completion toggled successfully")
+      window.location.reload()
+    } catch (error) {
+      console.error("Error toggling task completion:", error)
+      App.setLoading(false)
+      alert("Error toggling task: " + error.message)
+    }
   },
 
   setLoading: (boolean) => {
