@@ -83,5 +83,4 @@ Welcome to the Blockchain To‑Do List, a decentralized application (dApp) that 
 <li>🧪 Use Chainlink for scheduling oracles (reminders, deadlines)</li>
 </ul>
 
-<h2>Friday never sleeps. She listens, learns, and helps — so you can focus on what matters.</h2>
 
